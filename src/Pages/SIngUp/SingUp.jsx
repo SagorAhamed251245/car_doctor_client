@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
@@ -6,6 +6,10 @@ import { AuthContext } from '../../Providers/AuthProvider';
 const SingUp = () => {
 
     const {createUser} = useContext(AuthContext)
+    const location = useLocation()
+    console.log(location);
+    const from = location?.state?.state?.from?.pathname || '/';
+    const navigate = useNavigate()
 
     const handelSingUp = event => {
         event.preventDefault()
@@ -17,6 +21,7 @@ const SingUp = () => {
         .then(result => {
             const user = result.user;
             console.log(user)
+            navigate(from , {replace: true})
         })
         .catch(error =>{
             console.log(error)
@@ -51,17 +56,17 @@ const SingUp = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" name='password' placeholder="password" className="input input-bordered" />
+                            <input type="password" name='password' placeholder="password" className="input input-bordered" />
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
                         <div className="form-control mt-6">
 
-                            <input className="btn btn-primary" type="submit" value="Login" />
+                            <input className="btn btn-primary" type="submit" value="Sing Up" />
                         </div>
                     </form>
-                    <p className='mt-4 text-center'>Already Have An Account?<Link className='text-orange-600 font-bold' to='/login'> Login</Link></p>
+                    <p className='mt-4 text-center'>Already Have An Account?<Link className='text-orange-600 font-bold' to='/login'>Log in</Link></p>
                 </div>
             </div>
         </div>

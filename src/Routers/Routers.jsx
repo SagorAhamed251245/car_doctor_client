@@ -26,17 +26,19 @@ const router = createBrowserRouter([
         element: <SingUp></SingUp>
       },
       {
-        path:'checkout/:id',
-        element: <CheckOut></CheckOut>,
-        loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+        path: 'checkout/:id',
+        element: <PrivetRoute>
+          <CheckOut></CheckOut>
+        </PrivetRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`)
       },
       {
-              path: 'bookings',
-              element: <PrivetRoute>
-                <Bookings></Bookings>
-              </PrivetRoute>
+        path: 'bookings',
+        element: <PrivetRoute>
+          <Bookings></Bookings>
+        </PrivetRoute>
       }
-     
+
     ]
   },
 ]);
